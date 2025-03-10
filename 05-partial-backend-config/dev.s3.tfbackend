@@ -1,0 +1,4 @@
+# For illustration purpose, not actively used
+bucket = "my-state-bucket-tf99"
+key    = "05-backend/dev/state.tfstate"
+region = "ap-southeast-1"
