@@ -1,0 +1,46 @@
+Terraform Building Blocks:
+
+Intro to HCL:
+1. Resource: A resource in Terraform is something that you create, manage, or modify. It's typically an object or component of your infrastructure that you want Terraform to manage throughout its lifecycle. Terraform will create, update, or delete resources based on the configurations you define. The resource exists in your infrastructure, and Terraform will keep track of its state. Resources represent things like virtual machines, security groups, networks, databases, etc.
+2. Data: A data source in Terraform is used to read information from existing infrastructure. It doesn't create or manage resources but allows you to retrieve and use data from outside Terraform’s management. Data sources allow you to reference existing resources that Terraform doesn’t create, such as information about an existing cloud instance, network, or image. It pulls information that may be used in other resources or outputs, but it does not change or manage the lifecycle of that data. For example, you might use a data source to fetch information about an existing AMI (Amazon Machine Image) or the details of an existing VPC.
+3. Variable: In Terraform, a variable block is used to define input variables, which allow you to make your Terraform configurations more flexible and reusable. Variables allow you to parameterize your Terraform code, enabling you to pass values dynamically into your configuration, rather than hardcoding them. The variable block is used to declare input variables that can be used throughout your Terraform configuration. These variables can accept values from different sources. These variables can accept values from different sources such as:
+- Command-line flags
+- .tfvars files
+- Environment variables
+- Default values
+4. Output: The output block in Terraform is used to define values that you want to display or export after the execution of terraform apply. Outputs are useful for getting the results of your infrastructure configuration, such as resource IDs, URLs, or other important information after Terraform finishes provisioning resources. They can be useful when: 
+- You need to pass information from one module to another.
+- You want to display resource information after the infrastructure has been created.
+- You want to share resource attributes with users or external systems.
+5. Locals: The locals block in Terraform is used to define local values or intermediate calculations that are used within a module or a configuration. It is essentially a way to simplify and reuse complex expressions within the configuration. Locals allow you to:
+- Store intermediate values or complex expressions.
+- Avoid repeating the same expressions multiple times.
+- Make the configuration more readable and maintainable.
+6. Module:  A module block allows you to organize and reuse parts of your configuration in a modular way. A module is essentially a container for multiple Terraform resources, input variables, output values, and other Terraform configurations that are grouped together. By using modules, you can:
+- Reuse infrastructure code across multiple projects.
+- Encapsulate complex configurations.
+- Simplify and maintain a cleaner and more organized codebase.
+
+Terraform Configuration:
+Terraform Block:
+In Terraform, the terraform block is used to configure Terraform-specific settings and options that affect how Terraform behaves and interacts with its providers, modules, and other components. This block is typically placed at the root of the Terraform configuration and is used to set general settings related to the working environment, such as the required provider versions, backend configuration, and the required Terraform version.
+- Only constants are allowed within the terraform block. Input variables or resource references are
+not allowed.
+- cloud block: used to configure Terraform Cloud.
+- backend block: used to configure a state backend for the project.
+- required_version key: used to specify the accepted versions of Terraform for the current project.
+- required_providers block: specifies the required providers for the current project or module, including their accepted versions.
+NOTE: In terraform block the backend block is used to define where Terraform's state should be stored, allowing for shared state between team members or environments. 
+
+Terraform CLI: Most Common Commands:
+- terraform validate: Checks the syntax of the Terraform files and verifies that they are internally consistent, but does not ensure that the resources exist or that the providers are properly configured.
+- terraform fmt: Automatically updates Terraform configuration files to a canonical format and style, improving consistency and readability. The command works only for the files in the current working directory, but you can also add a -recursive flag to format .tf files in nested directories.
+- terraform plan: Creates an execution plan, showing what actions Terraform will take to achieve the desired state defined in the Terraform files. This command does not modify the actual resources or state.
+- terraform plan -out <filename>: Similar to terraform plan, but it also writes the execution plan to a file that can be used by terraform apply, ensuring that exactly the planned actions are taken.
+- terraform apply: Applies the execution plan, making the necessary changes to reach the desired state of the resources. If you run terraform plan with the -out option, you can run terraform apply <filename> to provide the execution plan.
+- terraform show: Provides human-readable output from a state or plan file. It's used to inspect the current state or to see the actions planned by a terraform plan command.
+- terraform state list: Lists all resources in the state file, useful for managing and manipulating the state.
+- terraform destroy: Destroys all resources tracked in the state file. This command is the equivalent of passing a -destroy flag to the terraform apply command.
+- terraform -help: Provides help information about Terraform commands. It can be used alone for a general overview, or appended to a specific command for detailed help about that command.
+
+

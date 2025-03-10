@@ -1,0 +1,15 @@
+Mastering Terraform from Beginner to Expert:
+Tools and Setup:
+First we create a IAM user with access to AWS Management Console, and select I want to create IAM user, then choose password and then uncheck the Password change on signup. Then on next Page select add user to group and create group and in group select Administrator access and create Group and choose that group for our user and then review and create IAM user. We can also add MFA for our IAM.
+Then we install Terraform on our system and configure our VScode with our AWS. For this we create Access Key with option CLI from our AWS console.
+Then we configure our aws-cli and our vscode with AWS using those access keys.
+
+Creating VPC and subnets with Terraform:
+Here we create a subdirectory in our Project folder named 01-benefits-iac and inside we create a vpc.tf file. Inside this file we have:
+First block is terraform provider block, then we have aws configuration like region. Then we have resources block where we first creating VPC, then, Public subnet, Private Subnet, IGW, Route table, and finally Route table association.
+
+Stages of Provisioning Infrastructure:
+Plan: The terraform plan command is used to create a detailed execution plan that outlines the actions Terraform will take to achieve the desired infrastructure state. It compares the current state of your infrastructure (stored in the state file) with the desired state defined in the Terraform configuration files. It will show the changes Terraform intends to make (create, update, or delete resources).
+Apply: The terraform apply command executes the plan created by terraform plan and applies the necessary changes to the infrastructure. It will create, update, or delete resources according to the changes outlined in the execution plan. Prompts for user confirmation by default unless you use the -auto-approve flag.
+Destroy: The terraform destroy command is used to destroy all resources managed by Terraform. It will delete all the resources that were created or managed by Terraform. Similar to terraform apply, it prompts for confirmation unless the -auto-approve flag is used.
+ 
