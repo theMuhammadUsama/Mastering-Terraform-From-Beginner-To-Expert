@@ -1,3 +1,4 @@
+# data source to fetch info about Ubuntu AMI 
 data "aws_ami" "ubuntu" {
   most_recent = true
   owners      = ["099720109477"]
@@ -13,20 +14,70 @@ data "aws_ami" "ubuntu" {
   }
 }
 
+# data source to fetch info about current user
 data "aws_caller_identity" "current" {}
 
+# data source to fetch info about current region
 data "aws_region" "current" {}
 
+# data source to fetch info about VPC
+data "aws_vpc" "prod_vpc" {
+  tags = {
+    Env = "Prod"
+  }
+}
+
+# data source to fetch list of availability zones
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+# data source to fetching a IAM policy
+data "aws_iam_policy_document" "static_website" {
+  statement {
+    sid = "PublicReadGetObject"
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.public_read_bucket.arn}/*"]
+  }
+}
+
+resource "aws_s3_bucket" "public_read_bucket" {
+  bucket = "my_read_public_bucket"
+}
+
+# showing output of Ubuntu AMI 
 output "ubuntu_ami_data" {
   value = data.aws_ami.ubuntu.id
 }
 
-output "aws_caller_identity"{
-    value = data.aws_caller_identity.current
+# showing output of current user
+output "aws_caller_identity" {
+  value = data.aws_caller_identity.current
 }
 
-output "aws_region"{
-    value = data.aws_region.current
+# showing output of current region
+output "aws_region" {
+  value = data.aws_region.current
+}
+
+# showing output of VPC id
+output "aws_vpc" {
+  value = data.aws_vpc.prod_vpc.id
+}
+
+# showing output list of availability zones in current region
+output "azs" {
+  value = data.aws_availability_zones.available.names
+}
+
+# showing output of IAM policy 
+output "iam_policy" {
+  value = data.aws_iam_policy_document.static_website.id
 }
 resource "aws_instance" "ec2" {
   # Ubuntu AMI ID = ami-0c1907b6d738188e5
