@@ -22,8 +22,7 @@ resource "aws_instance" "compute" {
     volume_size           = var.ec2_volume_config.size
     volume_type           = var.ec2_volume_config.type
   }
-  tags = merge(var.additional_tags, {
-    Managedby = "Terraform"
+  tags = merge(local.common_tags, var.additional_tags, {
   })
 }
 
