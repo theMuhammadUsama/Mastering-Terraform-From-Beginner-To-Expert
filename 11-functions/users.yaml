@@ -1,0 +1,5 @@
+users:
+- name: John
+  group: developer
+- name: Sam
+  group: tester
