@@ -1,9 +1,4 @@
-locals {
-  project = "12-multiple-resources"
-  name    = "12-multiple-resources"
-}
-
-
+# Task 1: Creating a VPC and two Subnets using count
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 
